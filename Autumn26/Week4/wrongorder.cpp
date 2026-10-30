@@ -1,12 +1,10 @@
 #include <iostream>
 
-double myabs(double in);
-
 int main(){
     double n;
     std::cout << "please enter a number" << std::endl;
     std::cin >> n;
-    std::cout << "|" << n << "| = " << myabs(n) << std::endl;               
+    std::cout << "|" << n << "| = " << myabs(n) << std::endl;                      
 }
 
 double myabs(double in){
