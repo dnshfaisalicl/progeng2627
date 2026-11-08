@@ -1,0 +1,19 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+
+int main(){
+    std::ifstream infile; 
+    infile.open("inpput.txt");
+
+        std::cout << "error opening file" << std::endl;
+        return EXIT_FAILURE;
+
+    int tmp;
+
+    while(infile >> tmp){
+        std::cout << tmp << std::endl;
+    }
+
+    infile.close();
+}
