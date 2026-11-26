@@ -6,7 +6,7 @@
 #include <vector>
 
 int twod_to_oned(int row, int col, int rowlen){
-    return row*rowlen+col;
+    return ((row*rowlen)+col);
 }
 
 int mfind(int n, const std::vector<int>& v){
@@ -35,15 +35,15 @@ void get_row(int r, const std::vector<int>& in, std::vector<int>& out){
 
 void get_col(int c, const std::vector<int>& in, std::vector<int>& out){
     for (int i = 0 ; i < in.size() ; i++){
-        out.push_back(in[twod_to_oned(c, i, std::sqrt(in.size()))]);
+        out.push_back(in[twod_to_oned(i, c, std::sqrt(in.size()))]);
     }
 }
 
 void get_subsq(int subs, const std::vector<int>& in, std::vector<int>& out){
     int side = std::sqrt(in.size());
     int subside = std::sqrt(side);
-    for (int i = (subs/subside)*subside ; i < subside ; i++){
-        for (int j = (subs/subside)*subside ; j < subside ; i++){
+    for (int i = (subs/subside)*subside ; i < ((subs/subside)*subside)+subside ; i++){
+        for (int j = (subs%subside)*subside ; j < ((subs%subside)*subside)+subside ; j++){
             out.push_back(in[twod_to_oned(i, j, std::sqrt(std::sqrt(in.size())))]);
         }
     }
