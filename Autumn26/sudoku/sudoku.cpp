@@ -28,13 +28,13 @@ bool check_sequence(const std::vector<int>& v){
 }
 
 void get_row(int r, const std::vector<int>& in, std::vector<int>& out){
-    for (int i = 0 ; i < in.size() ; i++){
+    for (int i = 0 ; i < std::sqrt(in.size()) ; i++){
         out.push_back(in[twod_to_oned( r, i, std::sqrt(in.size()))]);
     }
 }
 
 void get_col(int c, const std::vector<int>& in, std::vector<int>& out){
-    for (int i = 0 ; i < in.size() ; i++){
+    for (int i = 0 ; i < std::sqrt(in.size()) ; i++){
         out.push_back(in[twod_to_oned(i, c, std::sqrt(in.size()))]);
     }
 }
@@ -44,7 +44,7 @@ void get_subsq(int subs, const std::vector<int>& in, std::vector<int>& out){
     int subside = std::sqrt(side);
     for (int i = (subs/subside)*subside ; i < ((subs/subside)*subside)+subside ; i++){
         for (int j = (subs%subside)*subside ; j < ((subs%subside)*subside)+subside ; j++){
-            out.push_back(in[twod_to_oned(i, j, std::sqrt(std::sqrt(in.size())))]);
+            out.push_back(in[twod_to_oned(i, j, std::sqrt(in.size()))]);
         }
     }
 }
