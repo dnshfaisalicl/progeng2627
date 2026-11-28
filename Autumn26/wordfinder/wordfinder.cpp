@@ -3,6 +3,29 @@
 #include <vector>
 #include <string>
 
+bool row_searcher(std::vector<std::string> grid, std::string word, int& xout, int& yout){
+    for ( int i = 0 ; i < grid.size() ; i++){
+        int chr = 0;
+        for ( int j = 0 ; j < grid[i].size() ; j++){
+            if (grid[i][j] == word[chr]){
+                chr++;
+                if (chr == word.size()){
+                    xout = j - word.size() + 1;
+                    yout = i;
+                    return true;
+                }
+            }
+            else if(grid[i][j] == word[0]){
+                chr = 1;
+            }
+            else{
+                chr = 0;
+            }
+        }
+    }
+    return false;
+}
+
 
 
 void find_words(
@@ -12,8 +35,37 @@ void find_words(
     std::vector<std::string>& not_found
 ){
 
+    std::vector<std::vector<int>> wordloc;
+    std::vector<std::string> found;
 
-    
+    for (int i = 0 ; i < words.size() ; i++){
+        int xout, yout;
+        if (row_searcher(grid, words[i], xout, yout)){
+            //create a vector = {xout, yout}
+            //push it into wordloc
+            //push the found word into found
+        }
+        else{
+            not_found.push_back(words[i]);
+        }
+
+    }
+
+
+
+
+
+
+
+
+    //how to output solution??
+    // overwrite the index of unrelated elements with #
+    solution = grid;
+    for (int i = 0 ; i < found.size() ; i++){
+
+    }
+
+
 }
 
 int main(){
