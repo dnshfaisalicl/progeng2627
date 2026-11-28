@@ -3,23 +3,26 @@
 #include <vector>
 #include <string>
 
-bool row_searcher(std::vector<std::string> grid, std::string word, int& xout, int& yout){
+bool row_searcher(std::vector<std::string> grid, std::string word, std::vector<std::string>& solution){
     for ( int i = 0 ; i < grid.size() ; i++){
         int chr = 0;
         for ( int j = 0 ; j < grid[i].size() ; j++){
-            if (grid[i][j] == word[chr]){
-                chr++;
-                if (chr == word.size()){
-                    xout = j - word.size() + 1;
-                    yout = i;
-                    return true;
+            if ( j < grid[i].size() - word.size()){
+                if (grid[i][j] == word[chr]){
+                    chr++;
+                    if (chr == word.size()){
+                        for ( int k = 0 ; k < word.size() ; k++){
+                            solution[i][j-k] = grid[i][j-k];
+                        }
+                        return true;
+                    }
                 }
-            }
-            else if(grid[i][j] == word[0]){
-                chr = 1;
-            }
-            else{
-                chr = 0;
+                else if(grid[i][j] == word[0]){
+                    chr = 1;
+                }
+                else{
+                    chr = 0;
+                }
             }
         }
     }
@@ -35,17 +38,8 @@ void find_words(
     std::vector<std::string>& not_found
 ){
 
-    std::vector<std::vector<int>> wordloc;
-    std::vector<std::string> found;
-
     for (int i = 0 ; i < words.size() ; i++){
-        int xout, yout;
-        if (row_searcher(grid, words[i], xout, yout)){
-            //create a vector = {xout, yout}
-            //push it into wordloc
-            //push the found word into found
-        }
-        else{
+        if (!row_searcher(grid, words[i], solution)){
             not_found.push_back(words[i]);
         }
 
@@ -59,10 +53,16 @@ void find_words(
 
 
     //how to output solution??
-    // overwrite the index of unrelated elements with #
-    solution = grid;
-    for (int i = 0 ; i < found.size() ; i++){
+    // initialise solution to be a grid of #
+    //overwrite positions with grid characters if they are part of a word
+    std::string tmp;
 
+    for ( int i = 0 ; i < grid[0].size() ; i++){
+        tmp.push_back('#');
+    }
+
+    for ( int i = 0 ; i < grid.size() ; i++){
+        solution.push_back(tmp);
     }
 
 
